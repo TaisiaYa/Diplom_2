@@ -13,7 +13,8 @@ class TestUserLogin:
             "email": created_user["user"]["email"],
             "password": created_user["user"]["password"]
         }
-        response = requests.post(Endpoints.LOGIN, json=data)
+        with allure.step("Отправка POST-запроса на авторизацию пользователя"):
+            response = requests.post(Endpoints.LOGIN, json=data)
 
         assert response.status_code == 200
         response_json = response.json()
@@ -28,7 +29,8 @@ class TestUserLogin:
             "email": "wrong@email.ru",
             "password": created_user["user"]["password"]
         }
-        response = requests.post(Endpoints.LOGIN, json=data)
+        with allure.step("Отправка POST-запроса на авторизацию пользователя"):
+            response = requests.post(Endpoints.LOGIN, json=data)
 
         assert response.status_code == 401
         assert response.json()["message"] == ERROR_MESSAGES["invalid_credentials"]
@@ -39,7 +41,8 @@ class TestUserLogin:
             "email": created_user["user"]["email"],
             "password": "wrong_password"
         }
-        response = requests.post(Endpoints.LOGIN, json=data)
+        with allure.step("Отправка POST-запроса на авторизацию пользователя"):
+            response = requests.post(Endpoints.LOGIN, json=data)
 
         assert response.status_code == 401
         assert response.json()["message"] == ERROR_MESSAGES["invalid_credentials"]
@@ -50,7 +53,8 @@ class TestUserLogin:
             "email": "wrong@email.ru",
             "password": "wrong_password"
         }
-        response = requests.post(Endpoints.LOGIN, json=data)
+        with allure.step("Отправка POST-запроса на авторизацию пользователя"):
+            response = requests.post(Endpoints.LOGIN, json=data)
 
         assert response.status_code == 401
         assert response.json()["message"] == ERROR_MESSAGES["invalid_credentials"]
